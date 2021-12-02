@@ -17,3 +17,5 @@ const Neumorphism = () => {
 };
 
 export default Neumorphism;
+
+export * from './context';

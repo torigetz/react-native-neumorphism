@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
+import { NeumorphContext } from './context';
 
 type NeumorphismProps = {
   lightColor?: string;
@@ -12,11 +13,17 @@ type NeumorphismProps = {
 };
 
 export default function Neumorphism(props: NeumorphismProps) {
+  const shadowContext = useContext(NeumorphContext);
+
+  useEffect(() => {
+    console.log(shadowContext)
+  }, [])
+
   if (props.shapeType === 'pressed') {
     let shadowProps = {
-      shadowRadius: 3,
-      shadowOffset: 5,
-      shadowOpacity: 1,
+      shadowRadius: shadowContext.shadowRadius,
+      shadowOffset: shadowContext.depth,
+      shadowOpacity: shadowContext.shadowOpacity,
     };
     return (
       <View style={props.style}>
@@ -56,22 +63,22 @@ export default function Neumorphism(props: NeumorphismProps) {
           style={{
             shadowColor: props.lightColor,
             shadowOffset: {
-              width: -5,
-              height: -5,
+              width: -(shadowContext.depth as number),
+              height: -(shadowContext.depth as number),
             },
-            shadowOpacity: 1,
-            shadowRadius: 3,
+            shadowOpacity: (shadowContext.shadowOpacity as number),
+            shadowRadius: (shadowContext.shadowRadius as number),
           }}
         >
           <View
             style={{
               shadowColor: props.darkColor,
               shadowOffset: {
-                width: 5,
-                height: 5,
+                width: (shadowContext.depth as number),
+                height: (shadowContext.depth as number),
               },
-              shadowOpacity: 1,
-              shadowRadius: 3,
+              shadowOpacity: (shadowContext.shadowOpacity as number),
+              shadowRadius: (shadowContext.shadowRadius as number),
             }}
           >
             <View style={{ borderRadius: props.radius, overflow: 'hidden' }}>
@@ -91,15 +98,17 @@ const Shadow = ({
   shadowOffset,
   shadowRadius,
 }: ShadowProps) => {
+  const shadowContext = useContext(NeumorphContext);
+
   if (shadowOffset === undefined) {
     shadowOffset = 5;
   }
 
   let offsets = {
-    left: shadowOffset,
-    top: shadowOffset,
-    right: -shadowOffset,
-    bottom: -shadowOffset,
+    left: shadowContext.depth,
+    top: shadowContext.depth,
+    right: -(shadowContext.depth as number),
+    bottom: -(shadowContext.depth as number),
   };
   const offsetStyle = {
     width: ['left', 'right'].includes(type) ? offsets[type] : 0,
@@ -112,7 +121,7 @@ const Shadow = ({
     shadowRadius: shadowRadius,
     shadowOpacity: shadowOpacity,
   };
-  return <View style={[insetStyles.shadow, insetStyles[type], shadowStyle]} />;
+  return <View style={[insetStyles.shadow, insetStyles[type], shadowStyle as any]} />;
 };
 
 interface ShadowProps {
