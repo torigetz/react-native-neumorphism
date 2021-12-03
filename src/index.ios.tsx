@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
+import { SHADOW_RADIUS_PRESSED } from './constants';
 import { NeumorphContext } from './context';
 
 type NeumorphismProps = {
@@ -21,7 +22,7 @@ export default function Neumorphism(props: NeumorphismProps) {
 
   if (props.shapeType === 'pressed') {
     let shadowProps = {
-      shadowRadius: shadowContext.shadowRadius,
+      shadowRadius: SHADOW_RADIUS_PRESSED,
       shadowOffset: shadowContext.depth,
       shadowOpacity: shadowContext.shadowOpacity,
     };
