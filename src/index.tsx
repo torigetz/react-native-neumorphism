@@ -1,7 +1,10 @@
+
 import { View, Platform } from 'react-native';
 import NeumorphismAndroid from './index.android';
 import NeumorphismIos from './index.ios';
 import NeumorphismWeb from './index.web';
+
+export { NeumorphProvider } from './context';
 
 const Neumorphism = () => {
   switch (Platform.OS) {
@@ -17,5 +20,3 @@ const Neumorphism = () => {
 };
 
 export default Neumorphism;
-
-export * from './context';
