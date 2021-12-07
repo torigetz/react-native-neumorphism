@@ -1,6 +1,7 @@
 import { requireNativeComponent, View, ViewStyle } from 'react-native';
 import React from 'react';
 import parseColor from 'parse-color';
+import { SHADOW_ELEVATION } from './constants';
 
 type NeumorphismProps = {
   lightColor?: string;
@@ -10,6 +11,7 @@ type NeumorphismProps = {
   style?: ViewStyle;
   disabled?: boolean;
   children?: React.ReactNode;
+  elevation?: number;
 };
 
 const NeumorphismCardView = requireNativeComponent<NeumorphismProps>(
@@ -31,6 +33,7 @@ export default (props: NeumorphismProps) => {
           darkColor={props.darkColor}
           radius={props.radius}
           shapeType={props.shapeType}
+          elevation={SHADOW_ELEVATION}
           style={{
             position: 'absolute',
             top: 0,

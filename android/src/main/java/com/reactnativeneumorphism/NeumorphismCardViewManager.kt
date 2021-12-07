@@ -31,6 +31,11 @@ class NeumorphismCardViewManager : ViewGroupManager<NeumorphCardView>() {
     view.setShadowColorDark(Color.parseColor(color))
   }
 
+  @ReactProp(name = "elevation")
+  fun setElevation(view: NeumorphCardView, elevation: Float) {
+    view.setShadowElevation(elevation)
+  }
+
   @ReactProp(name = "color")
   fun setColor(view: NeumorphCardView, color: String) {
     view.setBackgroundColor(Color.parseColor(color))
